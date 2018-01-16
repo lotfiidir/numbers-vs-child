@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div v-for="n in 10" @click="store.currentNumber = n">
+  <div class="wrap-number">
+    <p role="button" class="number" v-for="n in 10" @click="store.currentNumber = n">
       {{ n }}
-    </div>
+    </p>
     <pre>{{ store }}</pre>
   </div>
 </template>
 
 <script>
     import Number from "./Number";
-    import store from "../store";
+    import store from "../store/store";
 
     export default {
       components: {Number},

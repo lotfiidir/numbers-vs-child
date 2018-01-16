@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import ListNumber from '@/components/ListNumber'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
