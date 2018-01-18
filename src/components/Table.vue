@@ -36,10 +36,6 @@
         sa.responses.push(sa.result);
         sa.responses.push(sa.result - sa.numberB);
         sa.responses.push(sa.result + sa.numberB);
-       /* let index = sa.arrayMulti.indexOf(sa.numberB);
-        if (index >= 0) {
-          sa.arrayMulti.splice( index, 1 );
-        }*/
         sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
       }
       ,
