@@ -1,5 +1,38 @@
+@import url("https://fonts.googleapis.com/css?family=Itim");
+body {
+  font-family: 'Itim', cursive; }
+  body a {
+    text-decoration: none; }
+  body header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; }
+    body header #logo {
+      width: 250px;
+      text-align: center; }
+      body header #logo h2 {
+        font-size: 24px;
+        color: #2c3e50; }
+    body header nav {
+      width: 30%; }
+      body header nav ul {
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+        padding: 0; }
+        body header nav ul li {
+          list-style: none; }
+          body header nav ul li a {
+            font-size: 18px;
+            color: tomato; }
+  body .wrap-number .box-choice a {
+    color: #2c3e50;
+    background-color: #eeeeee; }
+
 pre {
-  position: absolute; }
+  position: absolute;
+  bottom: 0; }
 
 .wrap-number {
   width: 100%;
@@ -22,11 +55,23 @@ pre {
     cursor: pointer; }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px; }
+
+.operation {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .operation * {
+    margin: 20px; }
+
+.response {
+  display: flex;
+  justify-content: center; }
+  .response h2 {
+    margin: 20px; }
 
 /*# sourceMappingURL=style.css.map */

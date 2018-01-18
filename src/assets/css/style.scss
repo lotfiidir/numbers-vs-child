@@ -1,9 +1,58 @@
-body {
+@import url('https://fonts.googleapis.com/css?family=Itim');
 
+$colorBtn: #eeeeee;
+$colorFont: #2c3e50;
+
+body {
+  font-family: 'Itim', cursive;
+  a {
+    text-decoration: none;
+  }
+  header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    #logo {
+      width: 250px;
+      text-align: center;
+      h2 {
+        font-size: 24px;
+        color: $colorFont;
+      }
+    }
+    nav {
+      width: 30%;
+      ul {
+        display: flex;
+        justify-content: space-around;
+        margin: 0;
+        padding: 0;
+        li {
+          list-style: none;
+          a {
+            font-size: 18px;
+            color: tomato;
+          }
+        }
+      }
+    }
+  }
+  .wrap-number {
+    .box-choice {
+      a {
+        color: $colorFont;
+        background-color: $colorBtn;
+      }
+    }
+  }
 }
+
 pre {
   position: absolute;
+  bottom: 0;
 }
+
 .wrap-number {
   width: 100%;
   display: -ms-flexbox;
@@ -20,17 +69,31 @@ pre {
     align-items: center;
     border-radius: 5px;
     margin: 20px;
-    background-color: #eeeeee;
+    background-color: $colorBtn;
     font-size: 100px;
     cursor: pointer;
   }
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.operation {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  * {
+    margin: 20px;
+  }
+}
+.response {
+  display:flex;
+  justify-content: center;
+  h2{
+    margin: 20px;
+  }
 }
