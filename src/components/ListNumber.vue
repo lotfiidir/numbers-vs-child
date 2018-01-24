@@ -1,10 +1,10 @@
 <template>
   <div class="wrap-number">
-    <p role="button" class="number" v-for="num in 10" @click.prevent="getNumbers(num)">
+    <div role="button" class="number" v-for="num in 10" @click.stop="getNumbers(num)">
       <router-link :to="{ name: 'tableMulti', params: { id:num }}">
         {{ num }}
       </router-link>
-    </p>
+    </div>
     <pre>{{ store }}</pre>
   </div>
 </template>
@@ -20,7 +20,7 @@
       return {
         store: store
       }
-    }, computed: {},
+    },
     methods: {
       getNumbers(current) {
         const sa = store.apprentisage;

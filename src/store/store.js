@@ -1,5 +1,17 @@
 export default {
   apprentisage: {
+    initial() {
+      return {
+        step: null,
+        responses: [],
+        numberA: null,
+        numberB: null,
+        result: null,
+        arrayMulti: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        done: false,
+        currentTime:[]
+      }
+    },
     step: null,
     responses: [],
     numberA: null,
