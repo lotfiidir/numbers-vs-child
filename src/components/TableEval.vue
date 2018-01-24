@@ -59,18 +59,19 @@
       },
       next(response, $event) {
         const sa = store.apprentisage;
+        if (sa.step === 9) {
+          sa.done = true;
+          return;
+        }
         if (sa.result != response) {
           $event.currentTarget.classList.add('response-bad');
+          sa.isNotCorrect = true;
           return;
         }
         $event.currentTarget.classList.add('response-good');
 
         setTimeout(() => {
-          if (sa.step === 10 ) {
-            sa.done = true;
-            return;
-          }
-
+          sa.isCorrect = true;
           sa.step++;
           sa.responses = [];
           sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
@@ -84,14 +85,10 @@
           shuffled.slice(0, 3);
           sa.currentTime.push(this.datenow);
           sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-          let childResponse = document.querySelectorAll('.response h2');
-          childResponse.forEach(function(element) {
-            element.classList.remove('response-bad');
-            element.classList.remove('response-good'); 
-          });
-        },300);
-        
-          //document.querySelectorAll('.response h2').classList.remove('response-good');
+        },0);
+
+        $event.currentTarget.classList.remove('response-good');
+        $event.currentTarget.classList.remove('response-bad');
       }
     }
   }
