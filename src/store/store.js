@@ -2,14 +2,13 @@ export default {
   apprentisage: {
     initial() {
       return {
-        step: null,
+        step: 1,
         responses: [],
         numberA: null,
         numberB: null,
         result: null,
         arrayMulti: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         done: false,
-        currentTime:[]
       }
     },
     step: null,
@@ -22,6 +21,9 @@ export default {
       return numberA * numberB;
     },
     done: false,
+    isCorrect: false,
+    isNotCorrect: false,
+    currentTime:[],
   },
   evaluation: {},
   currentNumber: null

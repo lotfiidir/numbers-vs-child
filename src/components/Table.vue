@@ -7,8 +7,7 @@
     </div>
     <div class="equal"></div>
     <div class="response number">
-      <h2 v-bind:class="{ 'response-good': isCorrect, 'response-bad': isNotCorrect }"
-          v-for="response in store.apprentisage.responses" @click="next(response,$event)">{{response}}</h2>
+      <h2 v-for="response in store.apprentisage.responses" @click="next(response, $event)">{{response}}</h2>
     </div>
     <div class="minuetrie">{{datenow}}</div>
     <div class="modal" v-if="store.apprentisage.done">
@@ -28,34 +27,24 @@
       return {
         store: store,
         datenow: "",
-        isCorrect: false,
-        isNotCorrect: false,
       }
     },
-    mounted: function() {
-      this.time()
+    mounted: function () {
+      this.time();
     },
     created() {
       this.init()
     },
     methods: {
       time() {
-        const self = this;
-        this.datenow = moment().format('mm:ss');
-        setInterval(self.time, 1000)
+        const newDate = new Date();
+        setInterval(() => {
+          this.datenow = moment(new Date() - newDate).format('mm:ss:SS');
+        }, 30)
       },
       init() {
         const sa = store.apprentisage;
-        /*const initTime = new Date();
-        setInterval(() => {
-          sa.time = timeFormat(new Date() - initTime);
-          console.log(sa.time);
-        },30);*/
-
-        sa.step = 1;
         sa.responses = [];
-        this.isCorrect = false;
-        this.isNotCorrect = false;
         sa.numberA = this.$route.params.id;
         sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
         sa.result = sa._operation(sa.numberA, sa.numberB);
@@ -67,23 +56,22 @@
         });
         shuffled.slice(0, 3);
         sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-        console.log('PASSSEEDDDD');
       },
       next(response, $event) {
-        this.isCorrect = false;
-        this.isNotCorrect = false;
         const sa = store.apprentisage;
-        if (sa.step > 10) {
+        if (sa.step === 9) {
           sa.done = true;
+          return;
         }
         if (sa.result != response) {
           $event.currentTarget.classList.add('response-bad');
-          console.log($event.currentTarget);
+          sa.isNotCorrect = true;
           return;
         }
         $event.currentTarget.classList.add('response-good');
 
         setTimeout(() => {
+          sa.isCorrect = true;
           sa.step++;
           sa.responses = [];
           sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
@@ -95,8 +83,9 @@
             return .5 - Math.random()
           });
           shuffled.slice(0, 3);
+          sa.currentTime.push(this.datenow);
           sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-        }, 2000);
+        },0);
 
         $event.currentTarget.classList.remove('response-good');
         $event.currentTarget.classList.remove('response-bad');

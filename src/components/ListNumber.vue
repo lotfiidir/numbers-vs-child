@@ -1,6 +1,6 @@
 <template>
   <div class="wrap-number">
-    <div role="button" class="number" v-for="num in 10" @click.stop="getNumbers(num)">
+    <div role="button" class="number" v-for="num in 10">
       <router-link :to="{ name: 'tableMulti', params: { id:num }}">
         {{ num }}
       </router-link>
@@ -22,18 +22,6 @@
       }
     },
     methods: {
-      getNumbers(current) {
-        const sa = store.apprentisage;
-        sa.step = 1;
-        sa.responses = [];
-        sa.numberA = current;
-        sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
-        sa.result = sa._operation(sa.numberA, sa.numberB);
-        sa.responses.push(sa.result);
-        sa.responses.push(sa.result - sa.numberB);
-        sa.responses.push(sa.result + sa.numberB);
-        sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-      }
     }
   }
 </script>
