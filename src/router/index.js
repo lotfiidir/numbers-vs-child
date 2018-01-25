@@ -4,10 +4,12 @@ import ListNumber from '@/components/ListNumber'
 import Eval from '@/components/Eval'
 import Home from '@/components/Home'
 import Table from '@/components/Table'
+import Recap from '@/components/Recap'
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -17,7 +19,17 @@ export default new Router({
     {
       path: '/apprentissage',
       name: 'ListNumber',
-      component: ListNumber
+      component: ListNumber,
+    },
+    {
+      path: '/apprentissage/:id(\\d{1}|10)',
+      name: 'tableMulti',
+      component: Table,
+    },
+    {
+      path: '/apprentissage/:id/recap',
+      name: 'recap',
+      component: Recap
     },
     {
       path: '/evaluation',
@@ -25,10 +37,8 @@ export default new Router({
       component: Eval
     },
     {
-      path: '/apprentissage/:id',
-      name: 'tableMulti',
-      component: Table
+      path: '*',
+      redirect: '/'
     }
-
   ]
 })

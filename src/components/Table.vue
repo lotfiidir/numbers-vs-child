@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div @click="store.apprentisage.step = 10">jump</div>
+    <div class="progress-bar" v-bind:style="{ width: 10 * store.apprentisage.step + '%' }">
+      <p>
+        {{store.apprentisage.step}}
+      </p>
+    </div>
     <div class="operation">
       <h2>{{ $route.params.id }}</h2>
       <span class="multiplicator"></span>
@@ -11,7 +17,16 @@
     </div>
     <div class="minuetrie">{{datenow}}</div>
     <div class="modal" v-if="store.apprentisage.done">
-      <h2>Bravoooo !</h2>
+      <div>
+        <h2>Bravoooo !</h2>
+        <router-link :to="{ name: 'tableMulti', query: { essai:'' }}">
+          Refaire la table de {{store.apprentisage.numberA}}
+        </router-link>
+        <router-link :to="{ name: 'recap', params: {name:'recap'}}">
+          Récapitulatif
+        </router-link>
+      </div>
+      <router-view></router-view>
     </div>
     <pre>{{ store }}</pre>
   </div>
@@ -21,7 +36,6 @@
   import moment from 'moment';
 
   export default {
-
     name: "tableMulti",
     data() {
       return {
@@ -66,7 +80,7 @@
         $event.currentTarget.classList.add('response-good');
 
         setTimeout(() => {
-          if (sa.step === 10 ) {
+          if (sa.step > 9) {
             sa.done = true;
             return;
           }
@@ -85,13 +99,11 @@
           sa.currentTime.push(this.datenow);
           sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
           let childResponse = document.querySelectorAll('.response h2');
-          childResponse.forEach(function(element) {
+          childResponse.forEach(function (element) {
             element.classList.remove('response-bad');
-            element.classList.remove('response-good'); 
+            element.classList.remove('response-good');
           });
-        },300);
-        
-          //document.querySelectorAll('.response h2').classList.remove('response-good');
+        }, 300);
       }
     }
   }

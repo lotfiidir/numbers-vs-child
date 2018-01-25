@@ -1,29 +1,34 @@
-@import url("https://fonts.googleapis.com/css?family=Itim");
+@font-face {
+  font-family: 'Itim';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Itim"), local("Itim-Regular"), url("../fonts/Itim-Regular.ttf") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215; }
 body {
   font-family: 'Itim', cursive; }
   body a {
     text-decoration: none; }
-  body header {
+  body #header {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column; }
-    body header #logo {
+    body #header #logo {
       width: 250px;
       text-align: center; }
-      body header #logo h2 {
+      body #header #logo h2 {
         font-size: 24px;
         color: #2c3e50; }
-    body header nav {
+    body #header nav {
       width: 30%; }
-      body header nav ul {
+      body #header nav ul {
         display: flex;
         justify-content: space-around;
         margin: 0;
         padding: 0; }
-        body header nav ul li {
+        body #header nav ul li {
           list-style: none; }
-          body header nav ul li a {
+          body #header nav ul li a {
             font-size: 18px;
             color: tomato; }
   body .wrap-number .box-choice a {
@@ -72,6 +77,12 @@ pre {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px; }
+  #app .progress-bar {
+    width: 100%;
+    height: 20px;
+    margin: auto;
+    border-radius: 50px;
+    background-color: #449265; }
   #app .equal {
     width: 0;
     height: 100px;
@@ -106,7 +117,7 @@ pre {
     left: 0;
     position: absolute;
     background-color: rgba(193, 193, 193, 0.3); }
-    #app .modal h2 {
+    #app .modal div {
       width: 30vw;
       height: 30vw;
       background-color: #FFFFFF;

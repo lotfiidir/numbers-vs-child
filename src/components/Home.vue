@@ -10,12 +10,13 @@
         <h2>Mode évaluation</h2>
       </router-link>
     </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
   export default {
-    name: "home"
+    name: "home",
   }
 </script>
 
