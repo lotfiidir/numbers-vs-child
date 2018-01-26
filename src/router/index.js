@@ -34,7 +34,7 @@ export default new Router({
     {
       path: '/evaluation',
       name: 'Eval',
-      component: Eval
+      component: evaluationComponent
     },
     {
       path: '*',

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div @click="store.apprentisage.step = 10">jump</div>
+    <div class="progress-bar" v-bind:style="{ width: 10 * store.apprentisage.step + '%' }">
+      <p>
+        {{store.apprentisage.step}}
+      </p>
+    </div>
     <div class="operation">
       <h2>{{ $route.params.id }}</h2>
       <span class="multiplicator"></span>
@@ -11,7 +17,16 @@
     </div>
     <div class="minuetrie">{{datenow}}</div>
     <div class="modal" v-if="store.apprentisage.done">
-      <h2>Bravoooo !</h2>
+      <div>
+        <h2>Bravoooo !</h2>
+        <router-link :to="{ name: 'tableMulti', query: { essai:'' }}">
+          Refaire la table de {{store.apprentisage.numberA}}
+        </router-link>
+        <router-link :to="{ name: 'recap', params: {name:'recap'}}">
+          Récapitulatif
+        </router-link>
+      </div>
+      <router-view></router-view>
     </div>
     <pre>{{ store }}</pre>
   </div>
@@ -21,7 +36,6 @@
   import moment from 'moment';
 
   export default {
-
     name: "tableMulti",
     data() {
       return {
@@ -59,19 +73,18 @@
       },
       next(response, $event) {
         const sa = store.apprentisage;
-        if (sa.step === 9) {
-          sa.done = true;
-          return;
-        }
         if (sa.result != response) {
           $event.currentTarget.classList.add('response-bad');
-          sa.isNotCorrect = true;
           return;
         }
         $event.currentTarget.classList.add('response-good');
 
         setTimeout(() => {
-          sa.isCorrect = true;
+          if (sa.step > 9) {
+            sa.done = true;
+            return;
+          }
+
           sa.step++;
           sa.responses = [];
           sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
@@ -85,10 +98,12 @@
           shuffled.slice(0, 3);
           sa.currentTime.push(this.datenow);
           sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-        },0);
-
-        $event.currentTarget.classList.remove('response-good');
-        $event.currentTarget.classList.remove('response-bad');
+          let childResponse = document.querySelectorAll('.response h2');
+          childResponse.forEach(function (element) {
+            element.classList.remove('response-bad');
+            element.classList.remove('response-good');
+          });
+        }, 300);
       }
     }
   }
