@@ -1,26 +1,26 @@
 <template>
   <div>
-    <div @click="store.apprentisage.step = 10">jump</div>
-    <div class="progress-bar" v-bind:style="{ width: 10 * store.apprentisage.step + '%' }">
+    <div @click="store.evaluation.step = 10">jump</div>
+    <div class="progress-bar" v-bind:style="{ width: 10 * store.evaluation.step + '%' }">
       <p>
-        {{store.apprentisage.step}}
+        {{store.evaluation.step}}
       </p>
     </div>
     <div class="operation">
       <h2>{{ $route.params.id }}</h2>
       <span class="multiplicator"></span>
-      <h2>{{store.apprentisage.numberB}}</h2>
+      <h2>{{store.evaluation.operandeB}}</h2>
     </div>
     <div class="equal"></div>
     <div class="response number">
-      <h2 v-for="response in store.apprentisage.responses" @click="next(response, $event)">{{response}}</h2>
+      <h2 v-for="response in store.evaluation.responses" @click="next(response, $event)">{{response}}</h2>
     </div>
     <div class="minuetrie">{{datenow}}</div>
-    <div class="modal" v-if="store.apprentisage.done">
+    <div class="modal" v-if="store.evaluation.done">
       <div>
         <h2>Bravoooo !</h2>
-        <router-link :to="{ name: 'tableMulti', query: { essai:'' }}">
-          Refaire la table de {{store.apprentisage.numberA}}
+        <router-link :to="{ name: 'homeEvalution'}">
+          Refaire la table de {{store.evaluation.operandeA}}
         </router-link>
         <router-link :to="{ name: 'recap', params: {name:'recap'}}">
           Récapitulatif
@@ -36,7 +36,7 @@
   import moment from 'moment';
 
   export default {
-    name: "tableMulti",
+    name: "evaluationComponent",
     data() {
       return {
         store: store,
@@ -57,52 +57,29 @@
         }, 30)
       },
       init() {
-        const sa = store.apprentisage;
-        sa.responses = [];
-        sa.numberA = this.$route.params.id;
-        sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
-        sa.result = sa._operation(sa.numberA, sa.numberB);
-        sa.responses.push(sa.result);
-        sa.responses.push(sa.result - sa.numberB);
-        sa.responses.push(sa.result + sa.numberB);
-        let shuffled = sa.responses.sort(function () {
-          return .5 - Math.random()
-        });
-        shuffled.slice(0, 3);
-        sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
+        store.evaluation.initialization(this.$route.params.id);
       },
       next(response, $event) {
-        const sa = store.apprentisage;
-        if (sa.result != response) {
-          $event.currentTarget.classList.add('response-bad');
-          return;
-        }
-        $event.currentTarget.classList.add('response-good');
+        const eval_store = store.evaluation;
 
+        const answer = {};
+        answer.step = eval_store.step;
+        answer.operandeA = eval_store.operandeA;
+        answer.operandeB = eval_store.operandeB;
+        answer.select = response;
+        answer.echec = false;
+
+        if (eval_store.result != response) {
+          answer.echec = true;
+        }
+        eval_store.stories.push(answer);
+        
         setTimeout(() => {
-          if (sa.step > 9) {
-            sa.done = true;
+          if (eval_store.step > 9) {
+            eval_store.done = true;
             return;
           }
-
-          sa.step++;
-          sa.responses = [];
-          sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
-          sa.result = sa._operation(sa.numberA, sa.numberB);
-          sa.responses.push(sa.result);
-          sa.responses.push(sa.result - sa.numberA);
-          sa.responses.push(parseInt(sa.result + sa.numberB));
-          let shuffled = sa.responses.sort(function () {
-            return .5 - Math.random()
-          });
-          shuffled.slice(0, 3);
-          sa.currentTime.push(this.datenow);
-          sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
-          let childResponse = document.querySelectorAll('.response h2');
-          childResponse.forEach(function (element) {
-            element.classList.remove('response-bad');
-            element.classList.remove('response-good');
-          });
+          eval_store.nextEtape();
         }, 300);
       }
     }
