@@ -9,7 +9,7 @@
     <div class="operation">
       <h2>{{ $route.params.id }}</h2>
       <span class="multiplicator"></span>
-      <h2>{{store.apprentisage.numberB}}</h2>
+      <h2>{{store.apprentisage.operandeB}}</h2>
     </div>
     <div class="equal"></div>
     <div class="response number">
@@ -20,7 +20,7 @@
       <div>
         <h2>Bravoooo !</h2>
         <a href="" @click="init">
-          Refaire la table de {{store.apprentisage.numberA}}
+          Refaire la table de {{store.apprentisage.operandeA}}
         </a>
         <router-link :to="{ name: 'recap', params: {name:'recap'}}">
           Récapitulatif
@@ -49,48 +49,23 @@
     },
     methods: {
       init() {
-        const sa = store.apprentisage;
-        sa.responses = [];
-        sa.step = 1;
-        sa.done = false;
-        sa.numberA = this.$route.params.id;
-        sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
-        sa.result = sa._operation(sa.numberA, sa.numberB);
-        sa.responses.push(sa.result);
-        sa.responses.push(sa.result - sa.numberB);
-        sa.responses.push(sa.result + sa.numberB);
-        let shuffled = sa.responses.sort(function () {
-          return .5 - Math.random()
-        });
-        shuffled.slice(0, 3);
-        sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
+        store.apprentisage.initialization(this.$route.params.id);
       },
       next(response, $event) {
-        const sa = store.apprentisage;
+        const apprenti_store = store.apprentisage;
 
-        if (sa.result != response) {
+        if (apprenti_store.result != response) {
           $event.currentTarget.classList.add('response-bad');
           return;
         }
         $event.currentTarget.classList.add('response-good');
         setTimeout(() => {
-          if (sa.step > 9) {
+          if (apprenti_store.step > 9) {
             this.$router.push({name: 'recap', params: {name: 'recap'}});
-            sa.done = true;
+            apprenti_store.done = true;
             return;
           }
-          sa.step++;
-          sa.responses = [];
-          sa.numberB = sa.arrayMulti[Math.floor(Math.random() * sa.arrayMulti.length)];
-          sa.result = sa._operation(sa.numberA, sa.numberB);
-          sa.responses.push(sa.result);
-          sa.responses.push(sa.result - sa.numberA);
-          sa.responses.push(parseInt(sa.result + sa.numberB));
-          let shuffled = sa.responses.sort(function () {
-            return .5 - Math.random()
-          });
-          shuffled.slice(0, 3);
-          sa.arrayMulti.splice(sa.arrayMulti.indexOf(sa.numberB), 1);
+          apprenti_store.nextEtape();
           let childResponse = document.querySelectorAll('.response h2');
           childResponse.forEach(function (element) {
             element.classList.remove('response-bad');
