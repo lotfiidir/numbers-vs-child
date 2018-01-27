@@ -4,6 +4,8 @@ import ListNumber from '@/components/ListNumber'
 import Eval from '@/components/Eval'
 import Home from '@/components/Home'
 import Table from '@/components/Table'
+import evaluationComponent from '@/components/evaluationComponent'
+import homeEvalution from '@/components/homeEvalution'
 import Recap from '@/components/Recap'
 
 Vue.use(Router);
@@ -33,8 +35,13 @@ export default new Router({
     },
     {
       path: '/evaluation',
-      name: 'Eval',
-      component: evaluationComponent
+      name: 'homeEvalution',
+      component: homeEvalution
+    },
+    {
+      path: '/evaluation/:id(\\d{1}|10)',
+      name: 'evaluation',
+      component: evaluationComponent,
     },
     {
       path: '*',
