@@ -6,13 +6,12 @@ export default {
     numberB: null,
     result: null,
     arrayMulti: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    _operation: (numberA, numberB) => {
-      return numberA * numberB;
+    _operation: (a, b) => {
+      return a * b
     },
     done: false,
     isCorrect: false,
-    isNotCorrect: false,
-    currentTime:[],
+    isNotCorrect: false
   },
   evaluation: {}
 }
