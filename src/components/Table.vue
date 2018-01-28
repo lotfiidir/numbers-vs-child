@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div @click="store.apprentisage.step = 10">jump</div>
     <div class="progress-bar" v-bind:style="{ width: 10 * store.apprentisage.step + '%' }">
       <p>
         {{store.apprentisage.step}}/10
