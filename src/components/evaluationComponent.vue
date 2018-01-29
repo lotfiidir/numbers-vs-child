@@ -21,6 +21,7 @@
 </template>
 <script>
   import store from "../store/store";
+  import Children from "../store/children";
   import moment from 'moment';
 
   export default {
@@ -45,11 +46,24 @@
         }, 30)
       },
       init() {
+        var serie = {
+          "serie": this.datenow, "operations": []
+        };
+        var child = store.evaluation.getCurrentChild();
+        child.evaluations.push(serie);
+        console.log("ITEM ",child);
+        store.evaluation.updateChildren(child);
         store.evaluation.initialization(this.$route.params.id);
       },
       next(response, $event) {
         const eval_store = store.evaluation;
-
+        /*let titi = new Children("Mami", [], []);
+        var titi = {
+          "pseudo": "Mami", "apprentissages":[], "evaluations":[]
+        };*/
+        //console.log("CREATE ", eval_store.createChild(titi));
+        //console.log("CREATE ", eval_store.setCurrentChild("Mami"));
+        console.log("GET ITEM", eval_store.getCurrentChild());
         const answer = {};
         answer.step = eval_store.step;
         answer.operandeA = eval_store.operandeA;
