@@ -41,6 +41,7 @@ export default {
       this.table = Array.from(new Array(10),(val, index) => index+1);
       this.operandeA = entry;
       this.update();
+      //this.storage();
     },
     nextEtape(){
       this.step++;
@@ -59,9 +60,46 @@ export default {
       });
       shuffled.slice(0, 3);
       this.table.splice(this.table.indexOf(this.operandeB), 1);
+    },
+    setCurrentChild(childPseudo){
+      localStorage.setItem('currentChild', JSON.stringify(childPseudo));      
+    },
+    getCurrentChild(){
+      var pseudo = JSON.parse(localStorage.getItem("currentChild" || ""));
+      //console.log("CHILD PSEUDO", pseudo);
+      return this.getChildren(pseudo);
+    },
+    fetchChildrens(){
+      //localStorage.clear();
+      var childrens = JSON.parse(localStorage.getItem("storeChildrens") || "[]");
+      return childrens == null ? [] : childrens;
+    },
+    createChild(child){
+      var childs = this.fetchChildrens();
+      if(this.getChildren(child.pseudo) != null)
+        return false;
+      childs.push(child);
+      localStorage.setItem('storeChildrens', JSON.stringify(childs));
+      return true;
+    },
+    getChildren(pseudo){
+      var childs = this.fetchChildrens();      
+      for (var index = 0; index < childs.length; index++) {
+        var element = childs[index];
+        if(element.pseudo == pseudo)
+          return element;
+      }
+    },
+    updateChildren(child){
+      var childs = this.fetchChildrens();      
+      for (var index = 0; index < childs.length; index++) {
+        var element = childs[index];
+        if(element.pseudo == child.pseudo){
+          childs[index] = child;
+            localStorage.setItem('storeChildrens', JSON.stringify(childs));            
+            console.log("UPDATE", element)
+        }
+      }
     }
-  },
-  selectOperandeB(){
-    
   }
 }
