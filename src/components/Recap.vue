@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Récapitulatif</h1>
-    <div v-for="items in store.apprentisage.recapNow">
+    <div v-for="items in store.game.recapNow">
       <p>{{items.a}} X {{items.b}} =</p><span v-for="item in items">{{item}}</span>
     </div>
   </div>
