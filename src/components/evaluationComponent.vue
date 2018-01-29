@@ -16,18 +16,6 @@
       <h2 v-for="response in store.evaluation.responses" @click="next(response, $event)">{{response}}</h2>
     </div>
     <div class="minuetrie">{{datenow}}</div>
-    <div class="modal" v-if="store.evaluation.done">
-      <div>
-        <h2>Bravoooo !</h2>
-        <router-link :to="{ name: 'homeEvalution'}">
-          Refaire la table de {{store.evaluation.operandeA}}
-        </router-link>
-        <router-link :to="{ name: 'recap', params: {name:'recap'}}">
-          Récapitulatif
-        </router-link>
-      </div>
-      <router-view></router-view>
-    </div>
     <pre>{{ store }}</pre>
   </div>
 </template>
@@ -87,10 +75,11 @@
           answer.echec = true;
         }
         eval_store.stories.push(answer);
-        
+
         setTimeout(() => {
           if (eval_store.step > 9) {
             eval_store.done = true;
+            this.$router.push({name: 'recap', params: {name: 'recap'}});
             return;
           }
           eval_store.nextEtape();
