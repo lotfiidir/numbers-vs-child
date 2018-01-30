@@ -53,6 +53,7 @@
       next(response, $event) {
         const apprenti_store = store.game;
         const item_part = store.game.getCurrentPartie();
+        //apprenti_store.getStepsItem();
 
         if (item_part.result != response) {
           $event.currentTarget.classList.add('response-bad');
@@ -63,7 +64,7 @@
           if (item_part.step > 9) {
             this.$router.push({name: 'recap', params: {name: 'recap'}});
             item_part.done = true;
-            eval_store.setCurrentPartie(item_part);
+            apprenti_store.setCurrentPartie(item_part);
             return;
           }
           apprenti_store.nextEtape();

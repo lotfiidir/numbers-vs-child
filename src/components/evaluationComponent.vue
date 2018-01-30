@@ -54,7 +54,7 @@
         //console.log("ITEM ",child);
         store.game.updateChildren(child);*/
         //store.game.initialization(this.$route.params.id);
-        store.game.init("game", this.$route.params.id);
+        store.game.init("evaluation", this.$route.params.id);
       },
       next(response, $event) {
         const eval_store = store.game;
