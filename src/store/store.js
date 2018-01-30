@@ -1,19 +1,8 @@
 export default {
   game: {
-    step: 1,
-    responses: [],
-    stories: [],
-    operandeA: null,
-    operandeB: null,
-    result: null,
-    selected: 1,
-    table: [],
-    items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     _operation: (a, b) => {
       return a * b;
     },
-    done: false,
-    currentTime:[],
     selectTable:() => {
       this.selected = Math.floor((Math.random() * 10) +1);
       return this.selected;
@@ -38,45 +27,43 @@ export default {
         "result": null,
         "selected": null,
         "tables": [],
-        "done": null
+        "done": false,
+        "date": null
       };
 
+      var serie = {
+        "date": new Date(), "operations": []
+      };
+      var child = this.getCurrentChild();
+      if(mode == "apprentissage")
+        child.apprentissages.push(serie);
+      else
+        child.evaluations.push(serie);
+      
       var partie = this.getCurrentPartie();
-      console.log("PARTIE", partie == null);
       if(partie.step > 9 || partie.step == undefined || partie.mode != mode || partie.operandeA != operandeA){
         partie = model; 
         partie.mode = mode;
         partie.step = 1;
         partie.done = false;
+        partie.date = serie.date;
         partie.tables = Array.from(new Array(10),(val, index) => index+1);
         partie.operandeA = operandeA;
         this.setCurrentPartie(partie);
         this.update(); 
+        this.updateChildren(child);
         return;       
       }
-      //this.update();      
     },
     nextEtape(){
-      this.step++;
       var partie = this.getCurrentPartie();
       partie.step++;      
       this.setCurrentPartie(partie);      
       this.update();
+      console.log("NEXT IS CLECKED", this.getCurrentPartie());
       //this.currentTime.push(this.datenow);
     },
     update(){
-      /**
-      this.responses = [];
-      this.operandeB = this.table[Math.floor(Math.random() * this.table.length)];
-      this.result = this._operation(this.operandeA, this.operandeB);
-      this.responses.push(this.result);
-      this.responses.push(this.result - this.operandeB);
-      this.responses.push(this.result + this.operandeB);
-      let shuffled = this.responses.sort(function () {
-        return .5 - Math.random()
-      });
-      shuffled.slice(0, 3);
-      this.table.splice(this.table.indexOf(this.operandeB), 1); */
       var partie = this.getCurrentPartie();
       partie.responses = [];  
       partie.operandeB = partie.tables[Math.floor(Math.random() * partie.tables.length)]; 
@@ -89,7 +76,8 @@ export default {
       });
       shuffled.slice(0, 3);
       partie.tables.splice(partie.tables.indexOf(partie.operandeB), 1);  
-      this.setCurrentPartie(partie);      
+      this.setCurrentPartie(partie); 
+      //console.log("NEXT IS CLECKED UPDATE", this.getCurrentPartie());      
     },
     setCurrentPartie(partie){
       localStorage.setItem('currentSerie', JSON.stringify(partie));            
@@ -125,6 +113,7 @@ export default {
         if(element.pseudo == pseudo)
           return element;
       }
+      return null;
     },
     updateChildren(child){
       var childs = this.fetchChildrens();      
@@ -132,8 +121,41 @@ export default {
         var element = childs[index];
         if(element.pseudo == child.pseudo){
           childs[index] = child;
-            localStorage.setItem('storeChildrens', JSON.stringify(childs));            
+          localStorage.setItem('storeChildrens', JSON.stringify(childs));
+          //return;            
         }
+      }
+    },
+    setOperation(selection){
+      var child = this.getCurrentChild();
+      var currentPartie = this.getCurrentPartie();
+      var operations = currentPartie.mode == "apprentissage" ? child.apprentissages : child.evaluations;
+      for (var i  = 0; i < operations.length; i++) {
+        var item = operations[i];
+        if(item.date == currentPartie.date){
+          item.operations.push(selection);
+          //console.log("ITEM YES", item);
+          operations[i] = item;
+        } 
+      }
+      if(currentPartie.mode == "apprentissage"){
+        child.apprentissages = operations;        
+      } else{
+        child.evaluations = operations;        
+      }      
+      this.updateChildren(child);
+      //console.log("ADDING OP",this.getCurrentChild() )
+    },
+    getOperation(){
+      var child = this.getCurrentChild();
+      var currentPartie = this.getCurrentPartie();
+      var operations = currentPartie.mode == "apprentissage" ? child.apprentissages : child.evaluations;
+      for (var i  = 0; i < operations.length; i++) {
+        var item = operations[i];
+        if(item.date == currentPartie.date){
+          //console.log("ITEM YES", item);
+          return item;
+        } 
       }
     }
   }
