@@ -12,6 +12,13 @@ body {
   font-family: 'Itim', cursive; }
   body a {
     text-decoration: none; }
+  body aside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 100%;
+    width: 220px; }
   body #header {
     height: 20vh;
     display: flex;
@@ -86,14 +93,16 @@ pre {
   text-align: center;
   color: #2c3e50; }
   #app .modal-addchild {
-    width: 50%;
-    height: 50%;
+    width: 360px;
+    height: 120px;
     position: absolute;
-    top: 75%;
-    margin-left: -25%;
+    top: 50%;
+    margin-left: -180px;
     left: 50%;
-    margin-top: -25%;
-    background-color: #FFFFFF; }
+    margin-top: -60px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #888888; }
   #app .progress-bar {
     width: 100%;
     height: 20px;

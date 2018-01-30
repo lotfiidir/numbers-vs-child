@@ -82,7 +82,7 @@ export default {
       this.table.splice(this.table.indexOf(this.operandeB), 1);
     },
     setCurrentChild(childPseudo){
-      localStorage.setItem('currentChild', JSON.stringify(childPseudo));      
+      localStorage.setItem('currentChild', JSON.stringify(childPseudo));
     },
     getCurrentChild(){
       var pseudo = JSON.parse(localStorage.getItem("currentChild" || ""));
@@ -94,7 +94,10 @@ export default {
       var childrens = JSON.parse(localStorage.getItem("storeChildrens") || "[]");
       return childrens == null ? [] : childrens;
     },
-    createChild(child){
+    createChild(name){
+      var child = {
+        "pseudo": name, "apprentissages":[], "evaluations":[]
+      };
       var childs = this.fetchChildrens();
       if(this.getChildren(child.pseudo) != null)
         return false;
@@ -103,7 +106,7 @@ export default {
       return true;
     },
     getChildren(pseudo){
-      var childs = this.fetchChildrens();      
+      var childs = this.fetchChildrens();
       for (var index = 0; index < childs.length; index++) {
         var element = childs[index];
         if(element.pseudo == pseudo)
@@ -111,12 +114,12 @@ export default {
       }
     },
     updateChildren(child){
-      var childs = this.fetchChildrens();      
+      var childs = this.fetchChildrens();
       for (var index = 0; index < childs.length; index++) {
         var element = childs[index];
         if(element.pseudo == child.pseudo){
           childs[index] = child;
-            localStorage.setItem('storeChildrens', JSON.stringify(childs));            
+            localStorage.setItem('storeChildrens', JSON.stringify(childs));
             console.log("UPDATE", element)
         }
       }
