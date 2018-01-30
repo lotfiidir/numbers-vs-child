@@ -67,7 +67,7 @@
         for (var i = 0; i < child.apprentissages.length; i++) {
           var item = child.apprentissages[i];
           var res = 0;
-          for (var j = 0; j < item.operations; j++) {
+          for (var j = 0; j < item.operations.length; j++) {
               var operation = item.operations[j];
               if(! operation.echec){
                   res++;

@@ -4,8 +4,14 @@
     <!--<div v-for="items in store.game.recapNow">
       <p>{{items.a}} X {{items.b}} =</p><span v-for="item in items">{{item}}</span>
     </div> -->
-    <div v-if="store.game.getCurrentPartie() == 'apprentissage'">
+    <div v-if="store.game.getCurrentPartie().mode == 'apprentissage'">
         <h4>Apprentissage du {{ parseDate() }}</h4>
+        <div v-for="operation in store.game.getOperation().operations">
+          <p>
+            <span>{{ operation.operandeA }}</span> X <span>{{ operation.operandeB }}</span> = 
+            <span>{{ operation.response }}</span> <span v-show="operation.echec">la bonne réponse était {{ operation.operandeA*operation.operandeB }}</span>
+          </p>
+        </div>
     </div>
     <div v-else>
         <h4>Évaluation du {{ parseDate() }}</h4>

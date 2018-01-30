@@ -60,7 +60,7 @@ export default {
       partie.step++;      
       this.setCurrentPartie(partie);      
       this.update();
-      console.log("NEXT IS CLECKED", this.getCurrentPartie());
+      //console.log("NEXT IS CLECKED", this.getCurrentPartie());
       //this.currentTime.push(this.datenow);
     },
     update(){
