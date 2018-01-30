@@ -8,7 +8,7 @@ export default {
       return this.selected;
     },
     initialization(mode, operandeA){
-      var partie = this.getCurrentPartie();      
+      var partie = this.getCurrentPartie();
       partie.mode = mode;
       partie.step = 1;
       partie.done = false;
@@ -18,11 +18,11 @@ export default {
     },
     init(mode, operandeA){
       var model = {
-        "mode": "", 
-        "step": null, 
-        "responses": [], 
-        "stories": [], 
-        "operandeA": null, 
+        "mode": "",
+        "step": null,
+        "responses": [],
+        "stories": [],
+        "operandeA": null,
         "operandeB": null,
         "result": null,
         "selected": null,
@@ -39,10 +39,10 @@ export default {
         child.apprentissages.push(serie);
       else
         child.evaluations.push(serie);
-      
+
       var partie = this.getCurrentPartie();
       if(partie.step > 9 || partie.step == undefined || partie.mode != mode || partie.operandeA != operandeA){
-        partie = model; 
+        partie = model;
         partie.mode = mode;
         partie.step = 1;
         partie.done = false;
@@ -50,23 +50,23 @@ export default {
         partie.tables = Array.from(new Array(10),(val, index) => index+1);
         partie.operandeA = operandeA;
         this.setCurrentPartie(partie);
-        this.update(); 
+        this.update();
         this.updateChildren(child);
-        return;       
+        return;
       }
     },
     nextEtape(){
       var partie = this.getCurrentPartie();
-      partie.step++;      
-      this.setCurrentPartie(partie);      
+      partie.step++;
+      this.setCurrentPartie(partie);
       this.update();
       //console.log("NEXT IS CLECKED", this.getCurrentPartie());
       //this.currentTime.push(this.datenow);
     },
     update(){
       var partie = this.getCurrentPartie();
-      partie.responses = [];  
-      partie.operandeB = partie.tables[Math.floor(Math.random() * partie.tables.length)]; 
+      partie.responses = [];
+      partie.operandeB = partie.tables[Math.floor(Math.random() * partie.tables.length)];
       partie.result = this._operation(partie.operandeA, partie.operandeB);
       partie.responses.push(partie.result);
       partie.responses.push(partie.result - partie.operandeB);
@@ -75,18 +75,17 @@ export default {
         return .5 - Math.random()
       });
       shuffled.slice(0, 3);
-      partie.tables.splice(partie.tables.indexOf(partie.operandeB), 1);  
-      this.setCurrentPartie(partie); 
-      //console.log("NEXT IS CLECKED UPDATE", this.getCurrentPartie());      
+      partie.tables.splice(partie.tables.indexOf(partie.operandeB), 1);
+      this.setCurrentPartie(partie);
     },
     setCurrentPartie(partie){
-      localStorage.setItem('currentSerie', JSON.stringify(partie));            
+      localStorage.setItem('currentSerie', JSON.stringify(partie));
     },
     getCurrentPartie(){
       return JSON.parse(localStorage.getItem("currentSerie") || "{}");
     },
     setCurrentChild(childPseudo){
-      localStorage.setItem('currentChild', JSON.stringify(childPseudo));      
+      localStorage.setItem('currentChild', JSON.stringify(childPseudo));
     },
     getCurrentChild(){
       var pseudo = JSON.parse(localStorage.getItem("currentChild" || ""));
@@ -98,7 +97,10 @@ export default {
       var childrens = JSON.parse(localStorage.getItem("storeChildrens") || "[]");
       return childrens == null ? [] : childrens;
     },
-    createChild(child){
+    createChild(name){
+      var child = {
+        "pseudo": name, "apprentissages":[], "evaluations":[]
+      };
       var childs = this.fetchChildrens();
       if(this.getChildren(child.pseudo) != null)
         return false;
@@ -107,7 +109,7 @@ export default {
       return true;
     },
     getChildren(pseudo){
-      var childs = this.fetchChildrens();      
+      var childs = this.fetchChildrens();
       for (var index = 0; index < childs.length; index++) {
         var element = childs[index];
         if(element.pseudo == pseudo)
@@ -116,13 +118,13 @@ export default {
       return null;
     },
     updateChildren(child){
-      var childs = this.fetchChildrens();      
+      var childs = this.fetchChildrens();
       for (var index = 0; index < childs.length; index++) {
         var element = childs[index];
         if(element.pseudo == child.pseudo){
           childs[index] = child;
           localStorage.setItem('storeChildrens', JSON.stringify(childs));
-          //return;            
+          //return;
         }
       }
     },
@@ -136,13 +138,13 @@ export default {
           item.operations.push(selection);
           //console.log("ITEM YES", item);
           operations[i] = item;
-        } 
+        }
       }
       if(currentPartie.mode == "apprentissage"){
-        child.apprentissages = operations;        
+        child.apprentissages = operations;
       } else{
-        child.evaluations = operations;        
-      }      
+        child.evaluations = operations;
+      }
       this.updateChildren(child);
       //console.log("ADDING OP",this.getCurrentChild() )
     },
@@ -155,7 +157,7 @@ export default {
         if(item.date == currentPartie.date){
           //console.log("ITEM YES", item);
           return item;
-        } 
+        }
       }
     }
   }
