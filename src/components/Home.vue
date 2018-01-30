@@ -29,13 +29,13 @@
         <div class="box-apprenti box-choice">
           <router-link to="/apprentissage">
             <h2> Je revise mes tables</h2>
-            <img :src="image.apprenti" width="200" alt="image apprentissage">
+            <img :src="imageApprentissage" width="200" alt="image apprentissage">
           </router-link>
         </div>
         <div class="box-eval box-choice">
           <router-link to="/evaluation">
             <h2>Je teste mon niveau</h2>
-            <img :src="image.eval" width="200" alt="image evaluation">
+            <img :src="imageEvalaluation" width="200" alt="image evaluation">
           </router-link>
         </div>
         <router-view/>
@@ -45,6 +45,8 @@
 </template>
 <script>
   import store from "../store/store";
+  import imageApprentissage from "../assets/images/apprentissagemode.png";
+  import imageEvalaluation from "../assets/images/evaluationmode.png";
 
   export default {
     name: "home",
@@ -53,10 +55,8 @@
         store: store,
         childAdded: store.game.fetchChildrens().length !== 0,
         enfants: store.game.fetchChildrens(),
-        image: {
-          apprenti: '../assets/images/apprenti-mode.png',
-          eval: '../assets/images/eval-mode.png',
-        }
+        imageApprentissage: imageApprentissage,
+        imageEvalaluation: imageEvalaluation,
       }
     },
     methods: {
