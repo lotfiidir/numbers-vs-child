@@ -54,7 +54,7 @@
         //console.log("ITEM ",child);
         store.game.updateChildren(child);*/
         //store.game.initialization(this.$route.params.id);
-        store.game.init("game", this.$route.params.id)
+        store.game.init("game", this.$route.params.id);
       },
       next(response, $event) {
         const eval_store = store.game;
@@ -66,18 +66,17 @@
         //console.log("CREATE ", eval_store.createChild(titi));
         //console.log("CREATE ", eval_store.setCurrentChild("Mami"));
         //console.log("GET ITEM", eval_store.getCurrentChild());
-        const answer = {};
-        answer.step = eval_store.step;
-        answer.operandeA = eval_store.operandeA;
-        answer.operandeB = eval_store.operandeB;
-        answer.select = response;
-        answer.echec = false;
+        const operation = {};
+        operation.step = item_part.step;
+        operation.operandeA = item_part.operandeA;
+        operation.operandeB = item_part.operandeB;
+        operation.response = response;
+        operation.echec = false;
 
-        if (eval_store.result != response) {
-          answer.echec = true;
+        if (item_part.result != response) {
+          operation.echec = true;
         }
-        //eval_store.stories.push(answer);
-
+        eval_store.setOperation(operation);
         setTimeout(() => {
           if (item_part.step > 9) {
             item_part.done = true;
