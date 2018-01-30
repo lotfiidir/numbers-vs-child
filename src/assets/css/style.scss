@@ -20,6 +20,14 @@ body {
   a {
     text-decoration: none;
   }
+  aside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 100%;
+    width: 220px;
+  }
   #header {
     height: 20vh;
     display: flex;
@@ -68,7 +76,7 @@ body {
       cursor: pointer;
       box-shadow: 0 5px 0 $colorFont;
       transform: translate(0px, 3px);
-      transition:0.2s ease;
+      transition: 0.2s ease;
       &:hover {
         box-shadow: 0 8px 0 $colorFont;
         transform: translate(0px, 0px);
@@ -81,15 +89,25 @@ body {
       }
     }
     .box-choice {
+      position: relative;
       a {
         width: 300px;
         padding: 40px 10px;
-        border-radius:10px;
+        border-radius: 10px;
         display: block;
         color: $colorFont;
         background-color: $colorBtn;
         box-shadow: 0px 0px 2px #9E9E9E;
       }
+      /*&::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        background-color: rgba(224, 224, 224, 0.7);
+      }*/
     }
   }
 }
@@ -106,17 +124,30 @@ pre {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: $colorFont;
+  .modal-addchild {
+    width: 360px;
+    height: 120px;
+    position: absolute;
+    top: 50%;
+    margin-left: -180px;
+    left: 50%;
+    margin-top: -60px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #888888;
+    z-index: 1;
+  }
   .progress-bar {
     width: 100%;
     height: 20px;
     margin: auto;
     border-radius: 50px;
     background-color: $colorFont;
-    p{
+    p {
       color: $colorBtn;
     }
   }
-  .equal{
+  .equal {
     width: 0;
     height: 100px;
     margin: auto;
@@ -153,7 +184,7 @@ pre {
     left: 0;
     position: absolute;
     background-color: rgba(193, 193, 193, 0.30);
-    div{
+    div {
       width: 30vw;
       height: 30vw;
       background-color: #FFFFFF;

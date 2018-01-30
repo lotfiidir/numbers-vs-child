@@ -12,6 +12,13 @@ body {
   font-family: 'Itim', cursive; }
   body a {
     text-decoration: none; }
+  body aside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: white;
+    height: 100%;
+    width: 220px; }
   body #header {
     height: 20vh;
     display: flex;
@@ -65,14 +72,25 @@ body {
         color: #2c3e50;
         transition: 0.3s ease;
         transform: translateY(0px); }
-    body .wrap-number .box-choice a {
-      width: 300px;
-      padding: 40px 10px;
-      border-radius: 10px;
-      display: block;
-      color: #2c3e50;
-      background-color: #ffffff;
-      box-shadow: 0px 0px 2px #9E9E9E; }
+    body .wrap-number .box-choice {
+      position: relative;
+      /*&::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        left:0;
+        background-color: rgba(224, 224, 224, 0.7);
+      }*/ }
+      body .wrap-number .box-choice a {
+        width: 300px;
+        padding: 40px 10px;
+        border-radius: 10px;
+        display: block;
+        color: #2c3e50;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 2px #9E9E9E; }
 
 pre {
   position: absolute;
@@ -85,6 +103,18 @@ pre {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50; }
+  #app .modal-addchild {
+    width: 360px;
+    height: 120px;
+    position: absolute;
+    top: 50%;
+    margin-left: -180px;
+    left: 50%;
+    margin-top: -60px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #888888;
+    z-index: 1; }
   #app .progress-bar {
     width: 100%;
     height: 20px;
