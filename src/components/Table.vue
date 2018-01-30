@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="progress-bar" v-bind:style="{ width: 10 * store.apprentisage.step + '%' }">
+    <div class="progress-bar" v-bind:style="{ width: 10 * store.game.getCurrentPartie().step + '%' }">
       <p>
-        {{store.apprentisage.step}}/10
+        {{store.game.getCurrentPartie().step}}/10
       </p>
     </div>
     <div class="operation">
       <h2>{{ $route.params.id }}</h2>
       <span class="multiplicator"></span>
-      <h2>{{store.apprentisage.operandeB}}</h2>
+      <h2>{{store.game.getCurrentPartie().operandeB}}</h2>
     </div>
     <div class="equal"></div>
     <div class="response number">
-      <h2 v-if="response != 'NaN'" v-for="response in store.apprentisage.responses" @click="next(response, $event)">
+      <h2 v-if="response != 'NaN'" v-for="response in store.game.getCurrentPartie().responses" @click="next(response, $event)">
         {{response}}</h2>
     </div>
-    <div class="modal" v-if="store.apprentisage.done">
+    <div class="modal" v-if="store.game.getCurrentPartie().done">
       <div>
         <h2>Bravoooo !</h2>
         <a href="" @click="init">
-          Refaire la table de {{store.apprentisage.operandeA}}
+          Refaire la table de {{store.game.getCurrentPartie().operandeA}}
         </a>
         <router-link :to="{ name: 'recap', params: {name:'recap'}}">
           Récapitulatif
@@ -48,20 +48,22 @@
     },
     methods: {
       init() {
-        store.apprentisage.initialization(this.$route.params.id);
+        store.game.init("apprentissage", this.$route.params.id);
       },
       next(response, $event) {
-        const apprenti_store = store.apprentisage;
+        const apprenti_store = store.game;
+        const item_part = store.game.getCurrentPartie();
 
-        if (apprenti_store.result != response) {
+        if (item_part.result != response) {
           $event.currentTarget.classList.add('response-bad');
           return;
         }
         $event.currentTarget.classList.add('response-good');
         setTimeout(() => {
-          if (apprenti_store.step > 9) {
+          if (item_part.step > 9) {
             this.$router.push({name: 'recap', params: {name: 'recap'}});
-            apprenti_store.done = true;
+            item_part.done = true;
+            eval_store.setCurrentPartie(item_part);
             return;
           }
           apprenti_store.nextEtape();

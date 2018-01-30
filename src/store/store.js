@@ -1,42 +1,5 @@
 export default {
-  apprentisage: {
-    step: 1,
-    responses: [],
-    operandeA: null,
-    operandeB: null,
-    result: null,
-    table: [],
-    _operation: (a, b) => {
-      return a * b
-    },
-    done: false,
-    initialization(entry){
-      this.done = false;
-      this.step = 1;
-      this.table = Array.from(new Array(10),(val, index) => index+1);
-      this.operandeA = entry;
-      this.update();
-    },
-    nextEtape(){
-      this.step++;
-      this.update();
-      //this.currentTime.push(this.datenow);
-    },
-    update(){
-      this.responses = [];
-      this.operandeB = this.table[Math.floor(Math.random() * this.table.length)];
-      this.result = this._operation(this.operandeA, this.operandeB);
-      this.responses.push(this.result);
-      this.responses.push(this.result - this.operandeB);
-      this.responses.push(this.result + this.operandeB);
-      let shuffled = this.responses.sort(function () {
-        return .5 - Math.random()
-      });
-      shuffled.slice(0, 3);
-      this.table.splice(this.table.indexOf(this.operandeB), 1);
-    }
-  },
-  evaluation: {
+  game: {
     step: 1,
     responses: [],
     stories: [],
@@ -55,20 +18,54 @@ export default {
       this.selected = Math.floor((Math.random() * 10) +1);
       return this.selected;
     },
-    initialization(entry){
-      this.done = false;
-      this.step = 1;
-      this.table = Array.from(new Array(10),(val, index) => index+1);
-      this.operandeA = entry;
-      this.update();
-      //this.storage();
+    initialization(mode, operandeA){
+      var partie = this.getCurrentPartie();
+      partie.mode = mode;
+      partie.step = 1;
+      partie.done = false;
+      partie.tables = Array.from(new Array(10),(val, index) => index+1);
+      partie.operandeA = operandeA;
+      this.setCurrentPartie(partie);
+    },
+    init(mode, operandeA){
+      var model = {
+        "mode": "",
+        "step": null,
+        "responses": [],
+        "stories": [],
+        "operandeA": null,
+        "operandeB": null,
+        "result": null,
+        "selected": null,
+        "tables": [],
+        "done": null
+      };
+
+      var partie = this.getCurrentPartie();
+      console.log("PARTIE", partie == null);
+      if(partie.step > 9 || partie.step == undefined || partie.mode != mode || partie.operandeA != operandeA){
+        partie = model;
+        partie.mode = mode;
+        partie.step = 1;
+        partie.done = false;
+        partie.tables = Array.from(new Array(10),(val, index) => index+1);
+        partie.operandeA = operandeA;
+        this.setCurrentPartie(partie);
+        this.update();
+        return;
+      }
+      //this.update();
     },
     nextEtape(){
       this.step++;
+      var partie = this.getCurrentPartie();
+      partie.step++;
+      this.setCurrentPartie(partie);
       this.update();
       //this.currentTime.push(this.datenow);
     },
     update(){
+      /**
       this.responses = [];
       this.operandeB = this.table[Math.floor(Math.random() * this.table.length)];
       this.result = this._operation(this.operandeA, this.operandeB);
@@ -79,7 +76,26 @@ export default {
         return .5 - Math.random()
       });
       shuffled.slice(0, 3);
-      this.table.splice(this.table.indexOf(this.operandeB), 1);
+      this.table.splice(this.table.indexOf(this.operandeB), 1); */
+      var partie = this.getCurrentPartie();
+      partie.responses = [];
+      partie.operandeB = partie.tables[Math.floor(Math.random() * partie.tables.length)];
+      partie.result = this._operation(partie.operandeA, partie.operandeB);
+      partie.responses.push(partie.result);
+      partie.responses.push(partie.result - partie.operandeB);
+      partie.responses.push(partie.result + partie.operandeB);
+      let shuffled = partie.responses.sort(function () {
+        return .5 - Math.random()
+      });
+      shuffled.slice(0, 3);
+      partie.tables.splice(partie.tables.indexOf(partie.operandeB), 1);
+      this.setCurrentPartie(partie);
+    },
+    setCurrentPartie(partie){
+      localStorage.setItem('currentSerie', JSON.stringify(partie));
+    },
+    getCurrentPartie(){
+      return JSON.parse(localStorage.getItem("currentSerie") || "{}");
     },
     setCurrentChild(childPseudo){
       localStorage.setItem('currentChild', JSON.stringify(childPseudo));
@@ -120,7 +136,6 @@ export default {
         if(element.pseudo == child.pseudo){
           childs[index] = child;
             localStorage.setItem('storeChildrens', JSON.stringify(childs));
-            console.log("UPDATE", element)
         }
       }
     }

@@ -4,8 +4,9 @@
     <!--<div v-for="items in store.game.recapNow">
       <p>{{items.a}} X {{items.b}} =</p><span v-for="item in items">{{item}}</span>
     </div> -->
-    <div v-if="store.game.getCurrentPartie() == 'apprentissage'">
-        <h4>Apprentissage du {{ parseDate() }}</h4>
+    <h4>Statistiques de {{ this.store.game.getCurrentChild().pseudo.toUpperCase() }}</h4>
+    <!-- <div v-if="store.game.getCurrentPartie() == 'apprentissage'">
+        <h4>Apprentissage du {{ this.store.game.getCurrentChild() }}</h4>
     </div>
     <div v-else>
         <h4>Évaluation du {{ parseDate() }}</h4>
@@ -16,7 +17,7 @@
           </p>
         </div>
         {{ store.game.getOperation() }}
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,7 +38,6 @@
         return date.toLocaleDateString('fr-FR', options) + " à " + date.toLocaleTimeString('fr-FR');
       }
     }
-
   }
 </script>
 

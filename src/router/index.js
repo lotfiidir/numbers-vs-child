@@ -7,6 +7,7 @@ import Table from '@/components/Table'
 import evaluationComponent from '@/components/evaluationComponent'
 import homeEvalution from '@/components/homeEvalution'
 import Recap from '@/components/Recap'
+import Statistique from '@/components/recapGeneralComponent'
 
 Vue.use(Router);
 
@@ -29,7 +30,7 @@ export default new Router({
       component: Table,
     },
     {
-      path: '/apprentissage/:id/recap',
+      path: '/recapitulatif/:id',
       name: 'recap',
       component: Recap
     },
@@ -42,6 +43,11 @@ export default new Router({
       path: '/evaluation/:id(\\d{1}|10)',
       name: 'evaluation',
       component: evaluationComponent,
+    },
+    {
+      path: '/statistiques/:name',
+      name: 'statistique',
+      component: Statistique,
     },
     {
       path: '*',
