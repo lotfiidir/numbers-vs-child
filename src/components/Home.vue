@@ -65,6 +65,9 @@
         imageEvalaluation: imageEvalaluation,
       }
     },
+    mounted(){
+      store.game.locked = !store.game.canDoEvaluation();
+    },
     beforeRouteLeave(to, from, next) {
       if (this.childAdded) {
         next();
@@ -86,9 +89,10 @@
       changeChild(e){
         this.$nextTick(()=>{
           store.game.currentPlayer = e;
+          store.game.setCurrentChild(e);
+          store.game.locked = !store.game.canDoEvaluation();
           }
         );
-        store.game.setCurrentChild(e);
       }
     },
   }
