@@ -66,6 +66,7 @@ Un enfant possède un nom, un tableau pour les historiques de ses apprentissages
   }
 `
 
+
 - Une série ( apprentissage ou évaluation )
 Elle représente une partie jouée par un enfant. Elle est définie par le mode (évaluation ou apprentissage), une date et un tableau  d'opérations .
 `{
