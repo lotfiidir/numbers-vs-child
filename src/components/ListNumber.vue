@@ -17,8 +17,6 @@
       return {
         store: store
       }
-    },
-    methods: {
     }
   }
 </script>

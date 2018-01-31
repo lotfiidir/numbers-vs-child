@@ -2,7 +2,7 @@
   <div>
     <div class="progress-bar" v-bind:style="{ width: 10 * store.game.getCurrentPartie().step + '%' }">
       <p>
-        {{store.game.getCurrentPartie().step}}
+        {{store.game.getCurrentPartie().step}}/10
       </p>
     </div>
     <div class="operation">
@@ -14,15 +14,12 @@
     <div class="response number">
       <h2 v-for="response in store.game.getCurrentPartie().responses" @click="next(response, $event)">{{response}}</h2>
     </div>
-    <div class="minuetrie">{{datenow}}</div>
-    <pre>{{ store }}</pre>
+    <div class="minuetrie" v-show="false">{{datenow}}</div>
   </div>
 </template>
 <script>
   import store from "../store/store";
-  import Children from "../store/children";
   import moment from 'moment';
-
   export default {
     name: "tableMulti",
     data() {
@@ -31,11 +28,11 @@
         datenow: "",
       }
     },
-    mounted: function () {
-      this.time();
-    },
     created() {
       this.init()
+    },
+    mounted: function () {
+      this.time();
     },
     methods: {
       time() {
@@ -45,27 +42,11 @@
         }, 30)
       },
       init() {
-        /*
-        var serie = {
-          "serie": new Date(), "operations": []
-        };
-        var child = store.game.getCurrentChild();
-        child.evaluations.push(serie);
-        //console.log("ITEM ",child);
-        store.game.updateChildren(child);*/
-        //store.game.initialization(this.$route.params.id);
         store.game.init("apprentissage", this.$route.params.id);
       },
       next(response, $event) {
         const eval_store = store.game;
         const item_part = store.game.getCurrentPartie();
-        /*let titi = new Children("Mami", [], []);
-        var titi = {
-          "pseudo": "Mami", "apprentissages":[], "evaluations":[]
-        };*/
-        //console.log("CREATE ", eval_store.createChild(titi));
-        //console.log("CREATE ", eval_store.setCurrentChild("Mami"));
-        //console.log("GET ITEM", eval_store.getCurrentChild());
         const operation = {};
         operation.step = item_part.step;
         operation.operandeA = item_part.operandeA;

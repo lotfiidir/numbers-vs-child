@@ -18,7 +18,7 @@
   import { ChartAxis } from 'vue-d2b'
 
   export default {
-    name: "recap",
+    name: "statistique",
     data() {
       return {
         store: store,
@@ -34,7 +34,7 @@
         return date.toLocaleDateString('fr-FR', options) + " à " + date.toLocaleTimeString('fr-FR');
       },
       getHistorics(){
-          
+
         var child = this.store.game.getCurrentChild();
         var apprentissage = {label: 'Apprentissage', values: []};
         apprentissage.values.push({x:0, y:0});
@@ -46,8 +46,8 @@
               if(! operation.echec){
                   res++;
               }
-          }   
-          apprentissage.values.push({x:i+1, y:res});           
+          }
+          apprentissage.values.push({x:i+1, y:res});
         }
 
         var evaluation = {label: 'Évaluations', values: []};
@@ -60,8 +60,8 @@
               if(! operation.echec){
                   res++;
               }
-          }   
-          evaluation.values.push({x:i+1, y:res});           
+          }
+          evaluation.values.push({x:i+1, y:res});
         }
 
         var chartData = {
