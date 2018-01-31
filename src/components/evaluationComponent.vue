@@ -15,7 +15,6 @@
       <h2 v-for="response in store.game.getCurrentPartie().responses" @click="next(response, $event)">{{response}}</h2>
     </div>
     <div class="minuetrie">{{datenow}}</div>
-    <pre>{{ store }}</pre>
   </div>
 </template>
 <script>

@@ -97,12 +97,14 @@
         }, 400);
       },
       updateBestResponse(response){
+        setTimeout(() => {
         let childResponse = document.querySelectorAll('.response h2');
-        childResponse.forEach(function (element) {
-          if(element.innerHTML == response){
-            element.classList.add('response-good');
-          }
-        });
+          childResponse.forEach(function (element) {
+            if(element.innerHTML == response){
+              element.classList.add('response-good');
+            }
+          })
+        }, 200);
       }
     }
   }

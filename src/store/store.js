@@ -60,6 +60,7 @@ export default {
       partie.step++;
       this.setCurrentPartie(partie);
       this.update();
+      this.canDoEvaluation();
       //console.log("NEXT IS CLECKED", this.getCurrentPartie());
       //this.currentTime.push(this.datenow);
     },
@@ -159,6 +160,26 @@ export default {
           return item;
         }
       }
+    },
+    canDoEvaluation(){
+      var tables = Array.from(new Array(10),(val, index) => index+1);
+      var avancements = this.getCurrentChild().apprentissages;
+      var historics = [];
+      for (var i = 0; i < avancements.length; i++) {
+        var elt = avancements[i];
+        if(elt.operations.length == 10){
+          historics.push(elt.operations[0].operandeA);
+        }
+      }
+      var res = Array.from(new Array(10),(val, index) => index+1);
+      
+      for (var j = 0; j < historics.length; j++) {
+        var element = historics[j];
+        if(res.includes(j)){
+          res.splice(res.indexOf(j), 1);          
+        }
+      }
+      return res.length == 0;
     }
   }
 }

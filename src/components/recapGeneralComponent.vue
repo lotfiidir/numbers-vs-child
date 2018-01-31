@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1>Récapitulatif</h1>
-    <h4>Statistiques de {{ this.store.game.getCurrentChild().pseudo.toUpperCase() }}</h4>
+    <h1>Récapitulatif général</h1>
+    <div class="recap-general">
+      <h2>Les statistiques de {{ this.store.game.getCurrentChild().pseudo.toUpperCase() }}</h2>
+    </div>
     <div class='chart'>
         <!-- import font awesome for legend icons -->
         <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
@@ -20,35 +22,6 @@
     data() {
       return {
         store: store,
-        chartData: {
-          sets: [
-            {
-              generators: [svgArea(), svgLine(), svgScatter()],
-              graphs: [
-                {
-                  label: 'area 1',
-                  values: [
-                    {x: 1, y: 25},
-                    {x: 2, y: 38},
-                    {x: 3, y: 24},
-                    {x: 4, y: 60},
-                    {x: 5, y: 22}
-                  ]
-                },
-                {
-                  label: 'area 2',
-                  values: [
-                    {x: 1, y: 15},
-                    {x: 2, y: 8},
-                    {x: 3, y: 54},
-                    {x: 4, y: 22},
-                    {x: 5, y: 20}
-                  ]
-                }
-              ]
-            }
-          ]
-        }
       }
     },
     components: {
@@ -64,6 +37,7 @@
           
         var child = this.store.game.getCurrentChild();
         var apprentissage = {label: 'Apprentissage', values: []};
+        apprentissage.values.push({x:0, y:0});
         for (var i = 0; i < child.apprentissages.length; i++) {
           var item = child.apprentissages[i];
           var res = 0;
@@ -77,9 +51,9 @@
         }
 
         var evaluation = {label: 'Évaluations', values: []};
+        evaluation.values.push({x:0, y:0});
         for (var i = 0; i < child.evaluations.length; i++) {
           var item = child.evaluations[i];
-          //console.log("EVAL ITEM", item.operations);
           var res = 0;
           for (var j = 0; j < item.operations.length; j++) {
               var operation = item.operations[j];

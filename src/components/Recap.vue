@@ -1,27 +1,45 @@
 <template>
   <div>
     <h1>Récapitulatif</h1>
-    <!--<div v-for="items in store.game.recapNow">
-      <p>{{items.a}} X {{items.b}} =</p><span v-for="item in items">{{item}}</span>
-    </div> -->
-    <div v-if="store.game.getCurrentPartie().mode == 'apprentissage'">
-        <h4>Apprentissage du {{ parseDate() }}</h4>
-        <div v-for="operation in store.game.getOperation().operations">
-          <p>
-            <span>{{ operation.operandeA }}</span> X <span>{{ operation.operandeB }}</span> = 
-            <span>{{ operation.response }}</span> <span v-show="operation.echec">la bonne réponse était {{ operation.operandeA*operation.operandeB }}</span>
-          </p>
-        </div>
-    </div>
-    <div v-else>
-        <h4>Évaluation du {{ parseDate() }}</h4>
-        <div v-for="operation in store.game.getOperation().operations">
-          <p>
-            <span>{{ operation.operandeA }}</span> X <span>{{ operation.operandeB }}</span> = 
-            <span>{{ operation.response }}</span> <span v-show="operation.echec">la bonne réponse était {{ operation.operandeA*operation.operandeB }}</span>
-          </p>
-        </div>
-        {{ store.game.getOperation() }}
+    <div class="recap-content">
+      <div v-if="store.game.getCurrentPartie().mode == 'apprentissage'">
+          <h2>Séance d'apprentissage du {{ parseDate() }}</h2>
+          <div v-for="operation in store.game.getOperation().operations" class="partie-recap">
+            <div class="operandes-row">
+              <h2>{{ operation.operandeA }}</h2>
+              <span class="multiplicator"></span>
+              <h2>{{ operation.operandeB }}</h2> 
+            </div>
+            <div class="operandes-row equalizer">
+                <span class="equal"></span>
+            </div>
+            <div class="operandes-row response">
+              <h2 v-if="!operation.echec" class="response-good">{{ operation.response }}</h2>
+              <h2 v-else class="response-bad">{{ operation.response }}</h2>
+              <span v-show="operation.echec" class="response-msg">la bonne réponse était </span>
+              <h2 v-show="operation.echec" class="response-good">{{ operation.operandeA*operation.operandeB }}</h2>
+            </div>
+          </div>
+      </div>
+      <div v-else>
+          <h2>Séance d'évaluation du {{ parseDate() }}</h2>
+          <div v-for="operation in store.game.getOperation().operations" class="partie-recap">
+            <div class="operandes-row">
+              <h2>{{ operation.operandeA }}</h2>
+              <span class="multiplicator"></span>
+              <h2>{{ operation.operandeB }}</h2> 
+            </div>
+            <div class="operandes-row equalizer">
+                <span class="equal"></span>
+            </div>
+            <div class="operandes-row response">
+              <h2 v-if="!operation.echec" class="response-good">{{ operation.response }}</h2>
+              <h2 v-else class="response-bad">{{ operation.response }}</h2>
+              <span v-show="operation.echec" class="response-msg">la bonne réponse était </span>
+              <h2 v-show="operation.echec" class="response-good">{{ operation.operandeA*operation.operandeB }}</h2>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
 </template>
