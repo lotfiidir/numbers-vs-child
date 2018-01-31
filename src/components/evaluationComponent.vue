@@ -2,7 +2,7 @@
   <div>
     <div class="progress-bar" v-bind:style="{ width: 10 * store.game.getCurrentPartie().step + '%' }">
       <p>
-        {{store.game.getCurrentPartie().step}}
+        {{store.game.getCurrentPartie().step}}/10
       </p>
     </div>
     <div class="operation">

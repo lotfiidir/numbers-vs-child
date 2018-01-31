@@ -1,8 +1,10 @@
 export default {
   game: {
+    currentPlayer:'',
     _operation: (a, b) => {
       return a * b;
     },
+    locked : true,
     selectTable:() => {
       this.selected = Math.floor((Math.random() * 10) +1);
       return this.selected;
