@@ -1,23 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <div id="header">
+      <div class="name-current-child">
+        <h2>{{store.game.currentPlayer}}</h2>
+      </div>
+      <div id="logo">
+        <router-link to="/">
+          <h2>Numbers VS Child</h2>
+        </router-link>
+      </div>
+      <div class="statistic" >
+        <router-link :to="{ name: 'statistique', params: { name:store.game.currentPlayer }}" >
+          <h2>Statistique</h2>
+        </router-link>
+      </div>
+    </div>
     <router-view/>
   </div>
 </template>
-
 <script>
-export default {
-  name: 'App'
-}
+  import store from './store/store'
+
+  export default {
+    name: 'App',
+    data() {
+      return {
+        store: store,
+      }
+    },
+    mounted() {
+      if (store.game.getCurrentChild() != null) {
+        store.game.currentPlayer = store.game.getCurrentChild().pseudo;
+      }
+    }
+  }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "assets/css/style.css";
 </style>
