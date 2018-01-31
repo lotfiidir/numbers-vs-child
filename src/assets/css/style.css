@@ -51,6 +51,12 @@ body {
       position: absolute;
       top: 0;
       right: 5%; }
+    body #header .statistic {
+      position: absolute;
+      top: 0;
+      left: 5%; }
+      body #header .statistic a {
+        color: #2c3e50; }
     body #header #logo {
       width: 250px;
       text-align: center; }

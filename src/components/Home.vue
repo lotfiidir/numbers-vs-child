@@ -15,7 +15,7 @@
           <div class="header">
             <h1>Enfants</h1>
             <input autofocus autocomplete="off"
-                   placeholder="Pseudo..."
+                   placeholder="Ajouter..."
                    class="new-child"
                    @keyup.enter="addChild"/>
           </div>

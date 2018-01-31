@@ -9,6 +9,11 @@
           <h2>Numbers VS Child</h2>
         </router-link>
       </div>
+      <div class="statistic" >
+        <router-link :to="{ name: 'statistique', params: { name:store.game.currentPlayer }}" >
+          <h2>Statistique</h2>
+        </router-link>
+      </div>
     </div>
     <router-view/>
   </div>
@@ -23,8 +28,8 @@
         store: store,
       }
     },
-    mounted(){
-      if(store.game.getCurrentChild() != null){
+    mounted() {
+      if (store.game.getCurrentChild() != null) {
         store.game.currentPlayer = store.game.getCurrentChild().pseudo;
       }
     }
