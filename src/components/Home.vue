@@ -9,6 +9,11 @@
              placeholder="Pseudo de l'enfant..."
              @keyup.enter="addChild"/>
     </div>
+    <div class="statistic" >
+      <router-link :to="{ name: 'statistique', params: { name:store.game.currentPlayer }}" >
+        <h2>Statistique</h2>
+      </router-link>
+    </div>
     <div>
       <aside v-show="childAdded" v-bind:class="{show :showAside}">
         <section class="child-container">
