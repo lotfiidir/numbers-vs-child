@@ -14,23 +14,33 @@
     <div class="response number">
       <h2 v-for="response in store.game.getCurrentPartie().responses" @click="next(response, $event)">{{response}}</h2>
     </div>
-    <pre>{{ store }}</pre>
+    <div class="minuetrie" v-show="false">{{datenow}}</div>
   </div>
 </template>
 <script>
   import store from "../store/store";
-
+  import moment from 'moment';
   export default {
     name: "tableMulti",
     data() {
       return {
         store: store,
+        datenow: "",
       }
     },
     created() {
       this.init()
     },
+    mounted: function () {
+      this.time();
+    },
     methods: {
+      time() {
+        const newDate = new Date();
+        setInterval(() => {
+          this.datenow = moment(new Date() - newDate).format('mm:ss:SS');
+        }, 30)
+      },
       init() {
         store.game.init("apprentissage", this.$route.params.id);
       },
