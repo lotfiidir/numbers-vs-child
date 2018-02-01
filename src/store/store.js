@@ -164,7 +164,6 @@ export default {
       }
     },
     canDoEvaluation(){
-      var tables = Array.from(new Array(10),(val, index) => index+1);
       var avancements = this.getCurrentChild().apprentissages;
       var historics = [];
       for (var i = 0; i < avancements.length; i++) {
@@ -182,6 +181,17 @@ export default {
         }
       }
       return res.length == 0;
+    },
+    getAvancements(){
+      var avancements = this.getCurrentChild().apprentissages;
+      var historics = [];
+      for (var i = 0; i < avancements.length; i++) {
+        var elt = avancements[i];
+        if(elt.operations.length == 10){
+          historics.push(elt.operations[0].operandeA);
+        }
+      }
+      return historics;
     }
   }
 }

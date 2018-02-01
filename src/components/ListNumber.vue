@@ -1,6 +1,7 @@
 <template>
   <div class="wrap-number">
     <div role="button" class="number" v-for="num in 10">
+      {{ isChecked(num) }}
       <router-link :to="{ name: 'tableMulti', params: { id:num }}">
         {{ num }}
       </router-link>
@@ -16,6 +17,12 @@
     data() {
       return {
         store: store
+      }
+    },
+    methods:{
+      isChecked(table_id){
+        var apprentissages = store.game.getAvancements();
+        return apprentissages.includes(table_id)
       }
     }
   }
