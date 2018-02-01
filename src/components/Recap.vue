@@ -1,5 +1,8 @@
 <template>
   <div>
+    <router-link class="back-link" to="/apprentissage" v-if="store.game.getCurrentPartie().mode == 'apprentissage'">
+        <h3>Retour</h3>
+    </router-link>
     <h1>Récapitulatif</h1>
     <div class="recap-content">
       <div v-if="store.game.getCurrentPartie().mode == 'apprentissage'">
@@ -8,7 +11,7 @@
             <div class="operandes-row">
               <h2>{{ operation.operandeA }}</h2>
               <span class="multiplicator"></span>
-              <h2>{{ operation.operandeB }}</h2> 
+              <h2>{{ operation.operandeB }}</h2>
             </div>
             <div class="operandes-row equalizer">
                 <span class="equal"></span>
@@ -27,7 +30,7 @@
             <div class="operandes-row">
               <h2>{{ operation.operandeA }}</h2>
               <span class="multiplicator"></span>
-              <h2>{{ operation.operandeB }}</h2> 
+              <h2>{{ operation.operandeB }}</h2>
             </div>
             <div class="operandes-row equalizer">
                 <span class="equal"></span>

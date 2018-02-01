@@ -13,6 +13,32 @@ body {
   body a {
     text-decoration: none;
     outline: none; }
+  body .back-link {
+    display: block;
+    position: absolute;
+    left: 15%; }
+    body .back-link h3 {
+      color: #2c3e50; }
+      body .back-link h3::before {
+        content: '';
+        width: 20px;
+        height: 5px;
+        position: absolute;
+        border-radius: 50px;
+        top: 26px;
+        left: -25px;
+        transform: rotate(-30deg);
+        background-color: #2c3e50; }
+      body .back-link h3::after {
+        content: '';
+        width: 20px;
+        height: 5px;
+        position: absolute;
+        border-radius: 50px;
+        top: 34px;
+        left: -25px;
+        transform: rotate(30deg);
+        background-color: #2c3e50; }
   body aside {
     width: 220px;
     height: 100%;
