@@ -11,9 +11,7 @@ body {
   padding: 0;
   font-family: 'Itim', cursive; }
   body a {
-    text-decoration: none;
-    outline : none; 
-  }
+    text-decoration: none; }
   body aside {
     width: 220px;
     height: 100%;
@@ -53,12 +51,6 @@ body {
       position: absolute;
       top: 0;
       right: 5%; }
-    body #header .statistic {
-      position: absolute;
-      top: 0;
-      left: 5%; }
-      body #header .statistic a {
-        color: #2c3e50; }
     body #header #logo {
       width: 250px;
       text-align: center; }
@@ -223,6 +215,12 @@ pre {
       border-radius: 50px;
       border: 2px solid #2c3e50;
       outline: royalblue; }
+  #app .statistic {
+    position: absolute;
+    top: 0;
+    left: 5%; }
+    #app .statistic a {
+      color: #2c3e50; }
   #app .progress-bar {
     width: 100%;
     height: 20px;
