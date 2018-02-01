@@ -1,7 +1,6 @@
 <template>
   <div class="wrap-number">
-    <div role="button" class="number" v-for="num in 10">
-      {{ isChecked(num) }}
+    <div role="button" class="number" v-for="num in 10" v-bind:class="{'table-done': isChecked(num)}">
       <router-link :to="{ name: 'tableMulti', params: { id:num }}">
         {{ num }}
       </router-link>
