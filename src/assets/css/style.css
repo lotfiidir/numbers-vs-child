@@ -11,7 +11,9 @@ body {
   padding: 0;
   font-family: 'Itim', cursive; }
   body a {
-    text-decoration: none; }
+    text-decoration: none; 
+    outline : none;
+  }
   body aside {
     width: 220px;
     height: 100%;
